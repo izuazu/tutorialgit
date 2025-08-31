@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EKG Monitoring Dashboard</title>
+    
+    <!-- Google Fonts untuk tampilan teks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS lokal -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <main class="dashboard-container">
+            <header>
+                <h1><i class="fa-solid fa-wave-square"></i> EKG Dashboard</h1>
+                <p>Status Koneksi: <span id="connection-status">Initializing...</span></p>
+            </header>
+
+            <!-- Grid untuk menampilkan metrik utama -->
+            <div class="metrics-grid">
+                <section class="card">
+                    <h3><i class="fa-solid fa-heart-pulse"></i> BPM</h3>
+                    <p id="bpm-value" class="data-value">0</p>
+                </section>
+                <section class="card">
+                    <h3><i class="fa-solid fa-arrows-up-down"></i> HRV</h3>
+                    <p id="hrv-value" class="data-value">0</p>
+                </section>
+                <section class="card" id="status-card">
+                    <h3><i class="fa-solid fa-shield-heart"></i> Status</h3>
+                    <p id="status-value" class="data-value">N/A</p>
+                </section>
+            </div>
+
+            <!-- Grid untuk grafik ECG -->
+            <div class="charts-grid">
+                <section class="card">
+                    <h2>Grafik ECG</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="ecgChart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Grid untuk aksi (misal tombol reset) -->
+            <div class="data-grid">
+                 <section class="card card-full-height">
+                    <h2>Aksi</h2>
+                    <div class="button-group">
+                        <button id="resetData" class="button-danger"><i class="fa-solid fa-trash-can"></i> Reset Data</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal konfirmasi reset -->
+    <div id="modal-reset" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon icon-danger">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3>Reset Data</h3>
+            <p>Anda yakin ingin mereset semua data di dashboard dan database?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn-cancel">Batal</button>
+                <button id="confirmReset" class="modal-btn-confirm">Ya, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Library eksternal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <!-- Script utama dashboard -->
+    <script src="./App.js"></script>
+</body>
+</html>
